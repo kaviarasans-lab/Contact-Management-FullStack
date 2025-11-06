@@ -13,7 +13,7 @@ function ContactList({ contacts, setContacts }) {
         setLoading(true);
         const query = `?status=${filter}&search=${search}`;
         const fetchPromise = axios
-          .get(`http://localhost:5000/contacts${query}`)
+          .get(`https://contact-management-fullstack.onrender.com/contacts${query}`)
           .then((res) => setContacts(res.data))
           .catch((err) => console.log(err));
 
@@ -31,7 +31,7 @@ function ContactList({ contacts, setContacts }) {
   // ✅ Update contact status
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/contacts/${id}`, { status });
+      await axios.put(`https://contact-management-fullstack.onrender.com/contacts/${id}`, { status });
       setContacts((prev) =>
         prev.map((c) => (c._id === id ? { ...c, status } : c))
       );
@@ -44,7 +44,7 @@ function ContactList({ contacts, setContacts }) {
   const handleDelete = async (id) => {
     if (confirm("Are you sure about deleting this contact?")) {
       try {
-        await axios.delete(`http://localhost:5000/contacts/${id}`);
+        await axios.delete(`https://contact-management-fullstack.onrender.com/contacts/${id}`);
         setContacts((prev) => prev.filter((c) => c._id !== id));
       } catch (err) {
         console.log(err);

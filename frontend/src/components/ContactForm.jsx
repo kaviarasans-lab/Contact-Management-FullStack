@@ -12,7 +12,7 @@ function ContactForm({ setContacts, contacts }) {
          e.preventDefault();
          if(!name || !email) return alert("Name and Email Required")
          try {
-            const res = await axios.post("http://localhost:5000/contacts",{name,company,email,phone,status,})
+            const res = await axios.post("https://contact-management-fullstack.onrender.com/contacts",{name,company,email,phone,status,})
             setContacts([res.data,...contacts])
             setName("");
             setCompany("");
