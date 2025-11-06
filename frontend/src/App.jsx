@@ -16,7 +16,6 @@ function App() {
         <ContactList setContacts={setContacts} contacts={contacts}/>
       </div>
     </div>
-    <h1 className="text-[22px] font-bold mb-10 text-[#00277a] text-center mt-30 ml-15" >Crafted@2025 by Kaviarasan Pcs♦️</h1>
     </>
   );
 }
