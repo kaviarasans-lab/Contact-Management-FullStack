@@ -1,4 +1,3 @@
-// 💌☎️📞
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -28,7 +27,6 @@ function ContactList({ contacts, setContacts }) {
     fetchContacts();
   }, [filter, search, setContacts]);
 
-  // ✅ Update contact status
   const handleStatusChange = async (id, status) => {
     try {
       await axios.put(`https://contact-management-fullstack.onrender.com/contacts/${id}`, { status });
@@ -40,7 +38,6 @@ function ContactList({ contacts, setContacts }) {
     }
   };
 
-  // ✅ Delete contact
   const handleDelete = async (id) => {
     if (confirm("Are you sure about deleting this contact?")) {
       try {
@@ -54,9 +51,10 @@ function ContactList({ contacts, setContacts }) {
 
   return (
     <>
-      <div className="flex gap-10">
+      {/* Filter + Search Row */}
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10">
         <select
-          className="p-3 rounded bg-[#00277a] text-white cursor-pointer outline-0"
+          className="p-3 rounded bg-[#00277a] text-white cursor-pointer outline-0 w-full sm:w-auto"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -78,41 +76,41 @@ function ContactList({ contacts, setContacts }) {
       {loading ? (
         <div className="w-full h-[415px] flex flex-col items-center justify-center rounded-[5px] p-[20px] mt-10 gap-4">
           <img src="/loading.svg" alt="" width={60} height={60} />
-          <p className="text-[#00277a] text-2xl font-semibold">Loading...</p>
+          <p className="text-[#00277a] text-xl sm:text-2xl font-semibold">Loading...</p>
         </div>
       ) : (
         <div className="mt-10">
           {contacts.length === 0 ? (
             <div className="w-full h-[415px] flex flex-col items-center justify-center rounded-[5px] p-[20px] mt-10 gap-4 bg-[#eff4ff]">
               <img src="/user.png" alt="" width={60} height={60} />
-              <p className="text-[#00277a] text-2xl font-semibold">
+              <p className="text-[#00277a] text-xl sm:text-2xl font-semibold text-center">
                 No Contacts Found...
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               {contacts.map((c) => (
                 <div key={c._id}>
                   <div className="bg-[#eff4ff] shadow-md rounded p-4 flex flex-col justify-between hover:shadow-lg transition">
                     <div>
-                      <div className="text-gray-500 text-sm flex gap-2 mb-5 mt-0 justify-between items-center">
-                        <h3 className="font-bold text-2xl text-[#00277a]">
+                      <div className="text-gray-500 text-sm flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-5">
+                        <h3 className="font-bold text-xl sm:text-2xl text-[#00277a]">
                           {c.name}
                         </h3>
-                        <p className="text-[#00277a] p-2 px-4 rounded bg-[#d3e6ff] font-medium">
+                        <p className="text-[#00277a] p-2 px-4 rounded bg-[#d3e6ff] font-medium text-center sm:text-left">
                           {c.company}
                         </p>
                       </div>
 
-                      <div className="text-[16px] flex gap-2 my-3 justify-between border-2 border-[#00277a21] px-3 p-3 rounded">
+                      <div className="text-[15px] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 my-3 border-2 border-[#00277a21] px-3 p-3 rounded">
                         <p>💌 {c.email}</p>
                         <p>☎️ {c.phone}</p>
                       </div>
 
-                      <div className="flex justify-between items-center mt-4">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mt-4">
                         <select
                           value={c.status}
-                          className="p-1 rounded cursor-pointer outline-0 shadow"
+                          className="p-2 rounded cursor-pointer outline-0 shadow"
                           onChange={(e) =>
                             handleStatusChange(c._id, e.target.value)
                           }
@@ -123,7 +121,7 @@ function ContactList({ contacts, setContacts }) {
                         </select>
 
                         <button
-                          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition cursor-pointer"
+                          className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition cursor-pointer w-full sm:w-auto"
                           onClick={() => handleDelete(c._id)}
                         >
                           Delete
